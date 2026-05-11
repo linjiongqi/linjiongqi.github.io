@@ -206,6 +206,42 @@
   .about-body p { font-size: 17px; color: var(--ink-soft); margin: 0 0 16px; }
   .about-body strong { color: var(--ink); font-weight: 600; }
 
+  .phase-list {
+    list-style: none;
+    counter-reset: phase;
+    padding: 0;
+    margin: 0 0 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .phase-list li {
+    position: relative;
+    padding-left: 42px;
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    counter-increment: phase;
+  }
+  .phase-list li::before {
+    content: counter(phase);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .phase-list li strong { color: var(--ink); font-weight: 600; }
+
   /* Skills */
   .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
   @media (max-width: 760px) { .skills-grid { grid-template-columns: 1fr; } }
@@ -482,12 +518,24 @@
       </aside>
       <div class="about-body">
         <div class="lang-en">
-          <p>I'm currently interning at <strong>HeyGen</strong>, building an in-house AI data annotation platform from 0→1. The work splits into three phases: <strong>scoping</strong> (aligning the algorithm team and outsourced annotators, consolidating both sides' needs into one PRD), <strong>building</strong> (architecture: React + FastAPI + Postgres; CI/CD across three platforms; leading prod incident response), and <strong>managing freelancers</strong> (operating the platform once it opened to external annotators). Now in production, delivering <strong>100k+ labeled videos/week</strong> for foundation-model training.</p>
+          <p>I'm currently interning at <strong>HeyGen</strong>, building an in-house AI data annotation platform from 0→1. The project unfolded across three phases:</p>
+          <ol class="phase-list">
+            <li><strong>Scoping the project.</strong> Aligned the algorithm team and outsourced annotators; consolidated business-side (budget, vendor exit, data governance) and research-side (annotation types, throughput, QA) needs into a single PRD.</li>
+            <li><strong>Building the platform.</strong> Designed the architecture (React + FastAPI + Postgres); shipped CI/CD across three platforms; led prod incident response when things went sideways.</li>
+            <li><strong>Managing the freelancers.</strong> Once live, opened the platform to external annotators — owning throughput, quality, and day-to-day operations.</li>
+          </ol>
+          <p>Now in production, delivering <strong>100k+ labeled videos/week</strong> for foundation-model training.</p>
           <p>I work end-to-end: <em>define the product</em>, <em>write the full stack</em>, <em>wire in the AI / agent layer</em>, <em>ship and operate it</em>.</p>
           <p>On the academic side, I'm a <strong>Master's student at NUS</strong> — two first-author SCI reviews, plus an ongoing research project applying ML to vibrational spectroscopy.</p>
         </div>
         <div class="lang-zh">
-          <p>目前在 <strong>HeyGen 实习</strong>，从 0 到 1 搭一个内部 AI 数据标注平台 —— 整个过程大致是三段：<strong>把项目摸清楚</strong>（和算法团队、外包团队对齐需求，把业务和研发两边的诉求拢成一份 PRD）；<strong>把平台搭起来</strong>（定架构：React + FastAPI + Postgres，打通三个平台的 CI/CD，线上事故的排查恢复也是我顶）；<strong>管外包标注员</strong>（系统上线后开放给 freelancer，盯进度、保质量）。系统目前已经上线，每周给研究团队产出 <strong>100k+ 条标注视频</strong>，喂基础模型训练。</p>
+          <p>目前在 <strong>HeyGen 实习</strong>，从 0 到 1 搭一个内部 AI 数据标注平台。整个项目大致分三个阶段：</p>
+          <ol class="phase-list">
+            <li><strong>把项目摸清楚。</strong>和算法团队、外包团队对齐需求，把业务侧（预算、供应商退出、数据治理）和研发侧（标注类型、吞吐、QA 流程）的诉求拢成一份 PRD。</li>
+            <li><strong>把平台搭起来。</strong>定架构（React + FastAPI + Postgres）、打通三个平台的 CI/CD；线上事故的排查恢复也是我顶。</li>
+            <li><strong>管外包标注员。</strong>系统上线后开放给 freelancer，盯进度、保质量、维护日常运转。</li>
+          </ol>
+          <p>系统目前已经上线，每周给研究团队产出 <strong>100k+ 条标注视频</strong>，喂基础模型训练。</p>
           <p>我习惯端到端把事做完：<em>定义产品</em>、<em>写全栈</em>、<em>把 AI / Agent 接进去</em>、<em>推上线再扛运维</em>。</p>
           <p>学术背景上，我是 <strong>NUS 硕士在读</strong> —— 一作发过两篇 SCI 综述，研究生阶段在做一个振动光谱结合机器学习的项目。</p>
         </div>
