@@ -524,7 +524,7 @@
             <li><strong>Building the platform.</strong> Designed the architecture (React + FastAPI + Postgres); shipped CI/CD across three platforms; led prod incident response when things went sideways.</li>
             <li><strong>Managing the freelancers.</strong> Once live, opened the platform to external annotators — owning throughput, quality, and day-to-day operations.</li>
           </ol>
-          <p>Now in production, delivering <strong>100k+ labeled videos/week</strong> for foundation-model training.</p>
+          <p>Now in production, delivering <strong>100k+ labeled videos/week</strong> for foundation-model training. Alongside the platform, I also built an in-house <strong>harness system</strong> — turning ad-hoc model evals into a standardized pipeline the algorithm team can run on demand.</p>
           <p>I work end-to-end: <em>define the product</em>, <em>write the full stack</em>, <em>wire in the AI / agent layer</em>, <em>ship and operate it</em>.</p>
           <p>On the academic side, I'm a <strong>Master's student at NUS</strong> — two first-author SCI reviews, plus an ongoing research project applying ML to vibrational spectroscopy.</p>
         </div>
@@ -535,7 +535,7 @@
             <li><strong>把平台搭起来。</strong>定架构（React + FastAPI + Postgres）、打通三个平台的 CI/CD；线上事故的排查恢复也是我顶。</li>
             <li><strong>管外包标注员。</strong>系统上线后开放给 freelancer，盯进度、保质量、维护日常运转。</li>
           </ol>
-          <p>系统目前已经上线，每周给研究团队产出 <strong>100k+ 条标注视频</strong>，喂基础模型训练。</p>
+          <p>系统目前已经上线，每周给研究团队产出 <strong>100k+ 条标注视频</strong>，喂基础模型训练。配套还搭了一套 <strong>harness 评测系统</strong>，把原本零散的模型评测沉淀成标准化流水线，算法团队随时能跑。</p>
           <p>我习惯端到端把事做完：<em>定义产品</em>、<em>写全栈</em>、<em>把 AI / Agent 接进去</em>、<em>推上线再扛运维</em>。</p>
           <p>学术背景上，我是 <strong>NUS 硕士在读</strong> —— 一作发过两篇 SCI 综述，研究生阶段在做一个振动光谱结合机器学习的项目。</p>
         </div>
@@ -663,12 +663,14 @@
               <li><strong>Designed the framework</strong> — full-stack architecture on React 19 + TypeScript + Vite (frontend) and FastAPI + PostgreSQL + Redis + Celery (backend), with a config-driven JSONB template engine supporting <strong>10 annotation types</strong> so research/ops can launch new campaigns without frontend changes (<strong>~1 week → ~10 min</strong> onboarding).</li>
               <li><strong>Built CI/CD across 3 platforms</strong> — frontend on Vercel (preview env auto-spawned per PR), backend on AWS EC2 (GitHub Actions → rsync + alembic upgrade head + systemd restart), database on Supabase; <strong>~30s from merge to live</strong>.</li>
               <li><strong>Now in production</strong>, opened to external annotators — delivers <strong>100k+ labeled videos/week</strong> to the research team for foundation-model training.</li>
+              <li><strong>Built an in-house harness system</strong> — turned ad-hoc model-evaluation scripts into a standardized pipeline so the algorithm team can spin up new evals on demand.</li>
               <li><strong>Led prod incident response</strong> — diagnosed a cascading slowdown rooted in long-held DB transactions during external ffprobe / R2 calls × uvicorn 0.45's GIL-blocking healthcheck; shipped a session-release refactor + <code class="inline">idle_in_transaction_session_timeout</code> to recover.</li>
             </ul>
             <ul class="lang-zh">
               <li><strong>定架构</strong> — 前端 React 19 + TypeScript + Vite，后端 FastAPI + PostgreSQL + Redis + Celery，再加一个配置驱动的 JSONB 模板引擎，覆盖 <strong>10 种标注类型</strong>。研发和运维上新项目不用改前端代码，启动时间从<strong>约 1 周压到约 10 分钟</strong>。</li>
               <li><strong>三个平台一条 CI/CD</strong> — 前端 Vercel（每个 PR 自动起预览环境），后端 AWS EC2（GitHub Actions → rsync + alembic upgrade head + systemd restart），数据库 Supabase；<strong>从合并到上线大约 30 秒</strong>。</li>
               <li><strong>已上线生产并对外部标注员开放</strong>，每周给研究团队产出 <strong>100k+ 条标注视频</strong>，喂基础模型训练。</li>
+              <li><strong>另外搭了一套内部 harness 系统</strong> — 把原本零散的模型评测脚本沉淀成标准化流水线，算法团队想跑新评测随时能起。</li>
               <li><strong>带头扛过一次线上事故</strong> — 定位到根因：外部 ffprobe / R2 调用期间数据库事务长时间不释放，再叠加 uvicorn 0.45 GIL 阻塞健康检查，整个系统级联变慢；最后靠重构会话释放逻辑 + <code class="inline">idle_in_transaction_session_timeout</code> 把服务救回来。</li>
             </ul>
           </div>
