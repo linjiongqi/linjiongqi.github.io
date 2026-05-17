@@ -1,913 +1,1733 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Lin Jiongqi — Product &amp; AI</title>
-<meta name="description" content="Lin Jiongqi / 林炯圻 — Product builder & AI developer. NUS Master's student, ex-HeyGen video data intern, published SCI researcher." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Lin Jiongqi · Product & AI</title>
+<meta name="description" content="Lin Jiongqi (林炯圻) — Technical product builder shipping AI data platforms. NUS M.Sc., HeyGen, two first-author SCI reviews." />
+<meta name="theme-color" content="#f1ece1" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
 <style>
-  :root {
-    --bg: #f7f5f0;
-    --bg-elev: #ffffff;
-    --ink: #11140f;
-    --ink-soft: #4a4f44;
-    --ink-mute: #8a8e82;
-    --line: #e3ddcf;
-    --accent: #d4623a;
-    --accent-soft: #f3d5c4;
-    --serif: "Fraunces", "Noto Serif SC", "Source Han Serif SC", "PingFang SC", "Microsoft YaHei", serif;
-    --sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
-    --maxw: 1080px;
-    --radius: 14px;
-    --t: 240ms cubic-bezier(.2,.7,.2,1);
-  }
+/* ────────────────────────────────────────────────
+   THE LIN ALMANAC · 林炯圻
+   editorial / modernist / paper-textured
+   ──────────────────────────────────────────────── */
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #14130f;
-      --bg-elev: #1c1a16;
-      --ink: #f3efe6;
-      --ink-soft: #c7c3b8;
-      --ink-mute: #8a8678;
-      --line: #2c2a24;
-      --accent: #ef8a5e;
-      --accent-soft: #3a261c;
-    }
-  }
+:root{
+  --paper:        #f1ece1;
+  --paper-deep:   #e9e1cf;
+  --paper-soft:   #f6f1e6;
+  --ink:          #14130f;
+  --ink-soft:     #4a4538;
+  --ink-mute:     #8a8270;
+  --line:         #cfc4ab;
+  --line-soft:    #ddd2bb;
+  --accent:       #c8401b;
+  --accent-deep:  #8e2a0e;
+  --accent-soft:  rgba(200,64,27,.10);
+  --gold:         #a0762a;
 
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    font-family: var(--sans);
-    color: var(--ink);
-    background: var(--bg);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  body[data-lang="zh"] { line-height: 1.75; }
-  body[data-lang="zh"] h1, body[data-lang="zh"] h2, body[data-lang="zh"] h3 { letter-spacing: 0; }
+  --serif:  "Fraunces", "Noto Serif SC", "Source Han Serif SC", "Songti SC", "Times New Roman", serif;
+  --sans:   "Plus Jakarta Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+  --mono:   "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
-  ::selection { background: var(--accent); color: #fff; }
+  --maxw:   1180px;
+  --gutter: clamp(20px, 4vw, 56px);
 
-  a { color: inherit; text-decoration: none; transition: color var(--t); }
-  a:hover { color: var(--accent); }
+  --t-fast: 200ms cubic-bezier(.2,.7,.2,1);
+  --t:      420ms cubic-bezier(.2,.7,.2,1);
+  --t-slow: 900ms cubic-bezier(.16,.84,.24,1);
+}
 
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:       #15140f;
+    --paper-deep:  #1c1a14;
+    --paper-soft:  #1a1812;
+    --ink:         #f0eadb;
+    --ink-soft:    #bdb6a4;
+    --ink-mute:    #7a7464;
+    --line:        #2e2a20;
+    --line-soft:   #25221b;
+    --accent:      #ee7349;
+    --accent-deep: #f59770;
+    --accent-soft: rgba(238,115,73,.14);
+    --gold:        #d4a85c;
+  }
+}
 
-  /* i18n visibility */
-  body[data-lang="en"] .lang-zh,
-  body[data-lang="zh"] .lang-en { display: none !important; }
+*,*::before,*::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin:0;
+  font-family: var(--sans);
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern","liga","calt","ss01";
+  position: relative;
+  overflow-x: hidden;
+}
 
-  /* Nav */
-  .nav {
-    position: sticky; top: 0; z-index: 50;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    background: color-mix(in srgb, var(--bg) 78%, transparent);
-    border-bottom: 1px solid var(--line);
-  }
-  .nav-inner {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 16px;
-    height: 64px;
-  }
-  .brand {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-size: 18px;
-    letter-spacing: -0.01em;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .brand-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-soft);
-  }
-  .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--ink-soft); }
-  .nav-links a { position: relative; }
-  .nav-links a::after {
-    content: ""; position: absolute; left: 0; bottom: -6px; height: 1px; width: 0;
-    background: var(--accent); transition: width var(--t);
-  }
-  .nav-links a:hover::after { width: 100%; }
-  @media (max-width: 720px) { .nav-links { display: none; } }
+/* paper grain — sits over the whole background, very subtle */
+body::before{
+  content:"";
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
+  opacity: .045;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+@media (prefers-color-scheme: dark){
+  body::before{ mix-blend-mode: screen; opacity:.06; }
+}
 
-  .lang-toggle {
-    appearance: none;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    color: var(--ink);
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: .08em;
-    padding: 8px 14px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all var(--t);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-  }
-  .lang-toggle:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
-  .lang-toggle .globe { width: 14px; height: 14px; opacity: .7; }
+::selection{ background: var(--ink); color: var(--paper); }
 
-  /* Hero */
-  .hero { padding: 80px 0 60px; position: relative; overflow: hidden; }
-  .hero::before {
-    content: "";
-    position: absolute; right: -120px; top: -120px;
-    width: 420px; height: 420px;
-    background: radial-gradient(circle, var(--accent-soft), transparent 70%);
-    opacity: .55; pointer-events: none;
-  }
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 22px;
-    display: inline-flex; align-items: center; gap: 10px;
-  }
-  body[data-lang="zh"] .eyebrow { font-family: var(--sans); letter-spacing: .05em; text-transform: none; font-size: 13px; }
-  .eyebrow .pulse {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 1.8s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 var(--accent); opacity: 1; }
-    50% { box-shadow: 0 0 0 8px transparent; opacity: .6; }
-  }
-  h1.name {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: clamp(48px, 8vw, 92px);
-    line-height: 1.02;
-    letter-spacing: -0.035em;
-    margin: 0 0 16px;
-  }
-  body[data-lang="zh"] h1.name { font-size: clamp(40px, 7vw, 76px); line-height: 1.15; }
-  h1.name em { font-style: italic; color: var(--accent); font-weight: 400; }
-  body[data-lang="zh"] h1.name em { font-style: normal; }
-  .tagline {
-    font-size: clamp(17px, 2vw, 20px);
-    color: var(--ink-soft);
-    max-width: 640px;
-    margin: 0 0 32px;
-  }
-  .tagline strong { color: var(--ink); font-weight: 600; }
-  .meta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-  .chip {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 14px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    font-size: 13px;
-    background: var(--bg-elev);
-    transition: all var(--t);
-  }
-  .chip:hover { border-color: var(--accent); transform: translateY(-1px); }
-  .chip svg { width: 14px; height: 14px; }
+a{ color: inherit; text-decoration: none; }
+button{ font: inherit; background: none; border: 0; color: inherit; cursor: pointer; }
 
-  /* Sections */
-  section { padding: 72px 0; border-top: 1px solid var(--line); }
-  .section-head {
-    display: grid; grid-template-columns: 220px 1fr; gap: 48px;
-    margin-bottom: 40px;
-  }
-  @media (max-width: 760px) { .section-head { grid-template-columns: 1fr; gap: 12px; margin-bottom: 28px; } }
-  .section-num {
-    font-family: var(--mono);
-    font-size: 12px; letter-spacing: .14em;
-    color: var(--ink-mute); text-transform: uppercase;
-  }
-  body[data-lang="zh"] .section-num { letter-spacing: .05em; }
-  .section-title {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: clamp(28px, 4vw, 40px);
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
-  .section-title em { font-style: italic; color: var(--accent); }
-  body[data-lang="zh"] .section-title em { font-style: normal; }
+.wrap{
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+  position: relative;
+  z-index: 2;
+}
 
-  /* About */
-  .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 48px; }
-  @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; gap: 16px; } }
-  .about-aside { font-size: 13px; color: var(--ink-mute); font-family: var(--mono); }
-  body[data-lang="zh"] .about-aside { font-family: var(--sans); }
-  .about-body p { font-size: 17px; color: var(--ink-soft); margin: 0 0 16px; }
-  .about-body strong { color: var(--ink); font-weight: 600; }
+/* ────────  TOP RULE / RUNNING HEAD  ──────── */
+.running{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.running-inner{
+  display: flex; align-items: center; justify-content: space-between;
+  height: 54px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.running .left, .running .right{ display:flex; align-items:center; gap: 18px; }
+.running .crest{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+.running .dot{
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  box-shadow: 0 0 0 0 var(--accent);
+  animation: pulse 2.4s ease-out infinite;
+}
+@keyframes pulse{
+  0%{ box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+  70%{ box-shadow: 0 0 0 10px transparent; }
+  100%{ box-shadow: 0 0 0 0 transparent; }
+}
+.running nav{ display: flex; gap: 22px; }
+.running nav a{
+  position: relative;
+  transition: color var(--t-fast);
+}
+.running nav a:hover{ color: var(--ink); }
+.running nav a::after{
+  content:""; position:absolute; left:0; right:0; bottom:-4px;
+  height:1px; background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t);
+}
+.running nav a:hover::after{ transform: scaleX(1); }
 
-  .phase-list {
-    list-style: none;
-    counter-reset: phase;
-    padding: 0;
-    margin: 0 0 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .phase-list li {
-    position: relative;
-    padding-left: 42px;
-    font-size: 16px;
-    color: var(--ink-soft);
-    line-height: 1.65;
-    counter-increment: phase;
-  }
-  .phase-list li::before {
-    content: counter(phase);
-    position: absolute;
-    left: 0;
-    top: 1px;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .phase-list li strong { color: var(--ink); font-weight: 600; }
+.lang-toggle{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: border-color var(--t-fast), color var(--t-fast), background var(--t-fast);
+}
+.lang-toggle:hover{ border-color: var(--ink); background: var(--paper-soft); }
 
-  /* Skills */
-  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  @media (max-width: 760px) { .skills-grid { grid-template-columns: 1fr; } }
-  .skill-card {
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 24px;
-    transition: all var(--t);
-  }
-  .skill-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-    box-shadow: 0 12px 32px -16px rgba(0,0,0,.15);
-  }
-  .skill-card h4 {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 14px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .skill-card h4 .icon {
-    width: 28px; height: 28px;
-    border-radius: 8px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 14px;
-  }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    padding: 4px 10px;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    color: var(--ink-soft);
-    transition: all var(--t);
-  }
-  body[data-lang="zh"] .tag { font-family: var(--sans); font-size: 12px; }
-  .tag:hover { color: var(--accent); border-color: var(--accent); }
+@media (max-width: 720px){
+  .running nav{ display: none; }
+}
 
-  /* Timeline */
-  .entry {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 48px;
-    padding: 28px 0;
-    border-top: 1px dashed var(--line);
-    position: relative;
-  }
-  .entry:first-of-type { border-top: none; padding-top: 0; }
-  @media (max-width: 760px) { .entry { grid-template-columns: 1fr; gap: 14px; } }
-  .entry-meta {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--ink-mute);
-    line-height: 1.7;
-  }
-  body[data-lang="zh"] .entry-meta { font-family: var(--sans); font-size: 13px; }
-  .entry-meta .date { color: var(--accent); display: block; margin-bottom: 6px; font-weight: 500; }
-  .entry-role {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin: 0 0 4px;
-  }
-  .entry-org { color: var(--ink-mute); font-size: 14px; margin-bottom: 16px; }
-  .entry-org .sep { margin: 0 8px; opacity: .5; }
-  .phase {
-    margin-top: 18px;
-    padding-top: 14px;
-    border-top: 1px solid var(--line);
-  }
-  .phase-label {
-    font-family: var(--mono);
-    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-  body[data-lang="zh"] .phase-label { font-family: var(--sans); font-size: 12px; letter-spacing: .05em; text-transform: none; }
-  .entry ul { margin: 0; padding: 0 0 0 18px; color: var(--ink-soft); }
-  .entry ul li { margin-bottom: 10px; font-size: 15.5px; }
-  .entry ul li strong { color: var(--ink); font-weight: 600; }
-  .entry ul li::marker { color: var(--accent); }
-  code.inline {
-    font-family: var(--mono);
-    font-size: 13px;
-    background: var(--bg-elev);
-    padding: 1px 6px;
-    border-radius: 4px;
-  }
+/* ────────  PROGRESS BAR  ──────── */
+.progress{
+  position: fixed; top:0; left:0; right:0; height: 2px;
+  z-index: 60;
+  background: transparent;
+}
+.progress > i{
+  display: block; height:100%; width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+  transition: width .08s linear;
+}
 
-  /* Projects */
-  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  @media (max-width: 760px) { .projects-grid { grid-template-columns: 1fr; } }
-  .project-card {
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 28px;
-    transition: all var(--t);
-    position: relative;
-    overflow: hidden;
-  }
-  .project-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--accent-soft) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity var(--t);
-    pointer-events: none;
-  }
-  .project-card:hover { transform: translateY(-3px); border-color: var(--accent); }
-  .project-card:hover::before { opacity: .35; }
-  .project-card > * { position: relative; z-index: 1; }
-  .project-card h4 {
-    font-family: var(--serif);
-    font-size: 20px;
-    font-weight: 600;
-    margin: 0 0 6px;
-    letter-spacing: -0.01em;
-  }
-  .project-card .sub {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--ink-mute);
-    text-transform: uppercase; letter-spacing: .1em;
-    margin-bottom: 14px;
-  }
-  body[data-lang="zh"] .project-card .sub { font-family: var(--sans); text-transform: none; letter-spacing: 0; font-size: 13px; }
-  .project-card p { font-size: 14.5px; color: var(--ink-soft); margin: 0 0 12px; }
-  .project-card p strong { color: var(--ink); font-weight: 600; }
+/* ────────  HERO MASTHEAD  ──────── */
+.masthead{
+  padding: clamp(40px, 8vw, 96px) 0 clamp(40px, 7vw, 80px);
+  position: relative;
+}
+.masthead .vol{
+  display: flex; justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: clamp(28px, 6vw, 60px);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.masthead .vol .right{ text-align: right; }
 
-  /* Split */
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-  @media (max-width: 760px) { .split { grid-template-columns: 1fr; } }
-  .edu-item, .award-item { padding: 18px 0; border-top: 1px solid var(--line); }
-  .edu-item:first-child, .award-item:first-child { border-top: none; padding-top: 0; }
-  .edu-item h4, .award-item h4 {
-    font-family: var(--serif);
-    font-size: 17px; font-weight: 600;
-    margin: 0 0 4px;
-  }
-  .edu-item .meta, .award-item .meta {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-  body[data-lang="zh"] .edu-item .meta, body[data-lang="zh"] .award-item .meta {
-    font-family: var(--sans); font-size: 12.5px;
-  }
-  .edu-item p, .award-item p { font-size: 14.5px; color: var(--ink-soft); margin: 0; }
+.title-block{
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: clamp(16px, 3vw, 28px);
+}
 
-  /* Footer */
-  footer {
-    padding: 60px 0 40px;
-    border-top: 1px solid var(--line);
-    text-align: center;
-    color: var(--ink-mute);
-    font-size: 13px;
-  }
-  footer .quote {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 20px;
-    color: var(--ink);
-    margin-bottom: 20px;
-    line-height: 1.4;
-  }
-  body[data-lang="zh"] footer .quote { font-style: normal; }
-  footer .links {
-    display: flex; gap: 24px; justify-content: center;
-    margin-bottom: 18px;
-    font-family: var(--mono);
-    font-size: 13px;
-  }
-  body[data-lang="zh"] footer .links { font-family: var(--sans); }
+h1.name{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+  font-size: clamp(56px, 11.5vw, 168px);
+  line-height: .9;
+  letter-spacing: -.02em;
+  margin: 0;
+  color: var(--ink);
+}
+h1.name em{
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--accent);
+}
+h1.name .cn{
+  display: block;
+  font-family: var(--serif);
+  font-size: .42em;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+  margin-top: .25em;
+  font-variation-settings: "opsz" 60;
+}
+body[data-lang="zh"] h1.name .cn{ color: var(--ink); }
 
-  /* Reveal */
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
-  .reveal.in { opacity: 1; transform: none; }
+.lede{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  margin-top: clamp(28px, 5vw, 56px);
+  align-items: end;
+}
+@media (min-width: 820px){
+  .lede{ grid-template-columns: 1.1fr .9fr; }
+}
+.lede .quote{
+  font-family: var(--serif);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.25;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  font-weight: 400;
+  max-width: 30ch;
+}
+.lede .quote em{
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 500;
+}
+.meta{
+  margin: 0;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  display: grid;
+  gap: 0;
+}
+.meta .row{
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 18px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px dotted var(--line);
+}
+.meta .row:last-child{ border-bottom: 0; }
+.meta dt{
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.meta dd{
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--ink);
+  font-weight: 500;
+}
+.meta a{ position: relative; }
+.meta a:hover{ color: var(--accent); }
+.meta a::after{
+  content:""; position:absolute; left:0; right:0; bottom:-2px;
+  height:1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t);
+}
+.meta a:hover::after{ transform: scaleX(1); }
 
-  /* Print */
-  @media print {
-    .nav, footer .links { display: none; }
-    section { padding: 24px 0; page-break-inside: avoid; }
-    body { background: #fff; color: #000; }
-    .hero { padding: 24px 0; }
+/* a tiny ornament under hero */
+.ornament{
+  margin-top: clamp(40px, 7vw, 72px);
+  display: flex; align-items: center; gap: 16px;
+  color: var(--ink-mute);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+.ornament::before, .ornament::after{
+  content:""; flex:1; height:1px; background: var(--line);
+}
+.ornament .dia{ color: var(--accent); transform: translateY(1px); }
+
+/* ────────  SECTION SCAFFOLD  ──────── */
+section{
+  padding: clamp(56px, 10vw, 120px) 0;
+  position: relative;
+}
+section + section{
+  border-top: 1px solid var(--line);
+}
+
+.chapter-head{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+@media (min-width: 820px){
+  .chapter-head{
+    grid-template-columns: 200px 1fr;
+    gap: 28px;
+    align-items: baseline;
   }
+}
+.chapter-head .roman{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: .02em;
+}
+.chapter-head .roman small{
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: .2em;
+  display: block;
+  color: var(--ink-mute);
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+.chapter-head h2{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-variation-settings: "opsz" 120;
+  font-size: clamp(34px, 5.2vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+  margin: 0;
+  color: var(--ink);
+}
+.chapter-head h2 em{
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+/* ────────  NOW  ──────── */
+.now-grid{
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 820px){
+  .now-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+.now-card{
+  position: relative;
+  padding: 28px 26px 26px;
+  background: var(--paper-soft);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  transition: transform var(--t), border-color var(--t), background var(--t);
+}
+.now-card:hover{
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+.now-card .tag{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.now-card .tag::before{
+  content:""; width: 18px; height: 1px; background: var(--accent);
+}
+.now-card h3{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-variation-settings: "opsz" 60;
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0 0 6px;
+  letter-spacing: -.01em;
+}
+.now-card .sub{
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.now-card p{
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.65;
+}
+
+/* ────────  WORK / EXPERIENCE  ──────── */
+.work-item{
+  position: relative;
+  padding: clamp(40px, 5vw, 60px) 0;
+  border-top: 1px solid var(--line);
+}
+.work-item:first-of-type{ border-top: 0; padding-top: 0; }
+.work-head{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+@media (min-width: 820px){
+  .work-head{ grid-template-columns: 200px 1fr auto; align-items: baseline; gap: 28px; }
+}
+.work-head .label{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.work-head h3{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-variation-settings: "opsz" 80;
+  font-size: clamp(26px, 3.2vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -.015em;
+  margin: 0;
+}
+.work-head h3 em{ font-style: italic; color: var(--accent); font-weight: 500; }
+.work-head h3 .role{
+  display: block;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+.work-head .when{
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+
+.phases{ display: grid; gap: clamp(20px, 3vw, 32px); }
+@media (min-width: 820px){
+  .phases{ grid-template-columns: 200px 1fr; gap: 28px; }
+  .phases.three-col{ grid-template-columns: 200px 1fr; }
+}
+.phase{
+  display: contents;
+}
+.phase + .phase{}
+@media (min-width: 820px){
+  .phases{ grid-template-columns: 200px 1fr; }
+}
+
+.phase-title{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-top: 4px;
+}
+.phase-body{
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.phase:last-child .phase-body{ border-bottom: 0; padding-bottom: 0; }
+.phase-body ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+.phase-body li{
+  position: relative;
+  padding-left: 22px;
+  color: var(--ink-soft);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.phase-body li::before{
+  content: "—";
+  position: absolute; left: 0; top: 0;
+  color: var(--accent);
+  font-family: var(--serif);
+  font-weight: 500;
+}
+.phase-body li strong{
+  color: var(--ink);
+  font-weight: 600;
+}
+.phase-body li em{
+  font-style: italic;
+  font-family: var(--serif);
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 1.02em;
+}
+
+/* ────────  AI PRACTICE  ──────── */
+.ai-practice{
+  margin-bottom: clamp(56px, 8vw, 96px);
+}
+.subsection-title{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: clamp(28px, 4vw, 44px);
+  display: flex; align-items: center; gap: 16px;
+}
+.subsection-title::before, .subsection-title::after{
+  content:""; flex:1; height:1px; background: var(--line);
+}
+
+.ai-grid{
+  display: grid;
+  gap: clamp(36px, 5vw, 56px);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 900px){
+  .ai-grid{ grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 72px); }
+}
+
+.ai-col{ display: flex; flex-direction: column; gap: clamp(24px, 3vw, 32px); }
+
+.ai-cat{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+  display: flex; align-items: baseline; gap: 12px;
+  flex-wrap: wrap;
+}
+.ai-cat strong{
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: .14em;
+}
+.ai-cat .zh-tag, .ai-cat .en-tag{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-mute);
+}
+body[data-lang="zh"] .ai-cat .zh-tag{ font-style: normal; }
+
+.ai-card{
+  position: relative;
+  padding-left: 24px;
+  border-left: 1px solid var(--line);
+  transition: border-left-color var(--t), padding-left var(--t);
+}
+.ai-card:hover{ border-left-color: var(--accent); padding-left: 28px; }
+
+.ai-card .num{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .22em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.ai-card h3{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-variation-settings: "opsz" 60;
+  font-size: clamp(20px, 2vw, 23px);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+.ai-card h3 em{ font-style: italic; color: var(--accent); font-weight: 500; }
+body[data-lang="zh"] .ai-card h3 em{ font-style: normal; }
+
+.ai-card .keys{
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: .02em;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.ai-card p{
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 42ch;
+}
+
+/* ────────  CAPABILITIES MARQUEE  ──────── */
+.caps{
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.cap-row{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+  transition: background var(--t-fast);
+}
+.cap-row:hover{ background: linear-gradient(90deg, var(--accent-soft), transparent 60%); }
+@media (min-width: 820px){
+  .cap-row{ grid-template-columns: 220px 1fr 80px; gap: 28px; }
+}
+.cap-row .k{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -.01em;
+}
+.cap-row .v{
+  font-family: var(--mono);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  letter-spacing: .01em;
+}
+.cap-row .v span{
+  display: inline-block;
+  padding: 3px 0;
+  margin-right: 6px;
+}
+.cap-row .n{
+  display: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: var(--ink-mute);
+  text-align: right;
+  text-transform: uppercase;
+}
+@media (min-width: 820px){ .cap-row .n{ display:block; } }
+
+/* ────────  ACADEMIC  ──────── */
+.acad{
+  display: grid;
+  gap: clamp(32px, 5vw, 56px);
+}
+.acad-item{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  padding-bottom: clamp(28px, 4vw, 44px);
+  border-bottom: 1px solid var(--line);
+}
+.acad-item:last-child{ border-bottom: 0; padding-bottom: 0; }
+@media (min-width: 820px){
+  .acad-item{ grid-template-columns: 220px 1fr auto; gap: 28px; align-items: baseline; }
+}
+.acad-item .when{
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+.acad-item h3{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-variation-settings: "opsz" 60;
+  font-size: 24px;
+  letter-spacing: -.01em;
+  margin: 0 0 4px;
+}
+.acad-item h3 em{ font-style: italic; color: var(--accent); }
+.acad-item .deg{ font-size: 14.5px; color: var(--ink-soft); margin-bottom: 12px; }
+.acad-item .gpa{
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--accent);
+  margin-top: 2px;
+}
+.acad-item .gpa::before{
+  content:""; width: 16px; height: 1px; background: var(--accent);
+}
+.acad-item p{
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.65;
+  max-width: 56ch;
+}
+.acad-item .label{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* ────────  PUBLICATIONS  ──────── */
+.pubs{ margin-top: clamp(28px, 4vw, 48px); }
+.pubs h4{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.pubs h4::after{ content:""; flex:1; height:1px; background: var(--line); }
+.pub{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line-soft);
+  align-items: baseline;
+  transition: padding-left var(--t);
+}
+.pub:hover{ padding-left: 12px; }
+.pub:last-child{ border-bottom: 0; }
+@media (min-width: 820px){
+  .pub{ grid-template-columns: 180px 1fr auto; gap: 28px; }
+}
+.pub .when{
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-mute);
+  letter-spacing: .06em;
+}
+.pub .title{
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.35;
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: "opsz" 80;
+  color: var(--ink);
+  letter-spacing: -.005em;
+}
+.pub .venue{
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--accent);
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+/* ────────  HONORS  ──────── */
+.honors{
+  display: grid;
+  gap: 0;
+}
+.honor{
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+  gap: 8px;
+}
+@media (min-width: 820px){
+  .honor{ grid-template-columns: 220px 1fr auto; gap: 28px; }
+}
+.honor:first-child{ border-top: 1px solid var(--line); }
+.honor .when{
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: .06em;
+}
+.honor .title{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -.01em;
+}
+.honor .note{
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--accent);
+  letter-spacing: .04em;
+}
+
+/* ────────  COLOPHON / FOOTER  ──────── */
+footer.colophon{
+  padding: clamp(60px, 9vw, 110px) 0 clamp(40px, 5vw, 60px);
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+.colophon .big{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-size: clamp(40px, 8vw, 110px);
+  line-height: .95;
+  letter-spacing: -.02em;
+  margin: 0 0 clamp(28px, 5vw, 48px);
+  color: var(--ink);
+}
+.colophon .big em{ color: var(--accent); font-style: italic; }
+.colophon-grid{
+  display: grid;
+  gap: 28px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 820px){
+  .colophon-grid{ grid-template-columns: 1.2fr 1fr 1fr; }
+}
+.colo-block .k{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 10px;
+}
+.colo-block .v{
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.45;
+  font-weight: 400;
+  font-variation-settings: "opsz" 30;
+}
+.colo-block a{ position: relative; }
+.colo-block a::after{
+  content:""; position:absolute; left:0; right:0; bottom: -2px;
+  height: 1px; background: var(--accent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t);
+}
+.colo-block a:hover::after{ transform: scaleX(1); }
+.colo-block a:hover{ color: var(--accent); }
+
+.signoff{
+  margin-top: clamp(40px, 6vw, 72px);
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.signoff .seal{ color: var(--accent); }
+
+/* ────────  LANGUAGE TOGGLE BEHAVIOR  ──────── */
+.lang-en{ display: inline; }
+.lang-zh{ display: none; }
+body[data-lang="zh"] .lang-en{ display: none; }
+body[data-lang="zh"] .lang-zh{ display: inline; }
+body[data-lang="zh"] .lede .quote em,
+body[data-lang="zh"] h1.name em{ font-style: normal; }
+body[data-lang="zh"] .cap-row .k,
+body[data-lang="zh"] .acad-item h3 em,
+body[data-lang="zh"] .pub .title,
+body[data-lang="zh"] .honor .title,
+body[data-lang="zh"] .colophon .big em{ font-style: normal; }
+body[data-lang="zh"]{
+  --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "Fraunces", serif;
+  --sans:  "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Plus Jakarta Sans", sans-serif;
+}
+
+/* ────────  SCROLL REVEAL  ──────── */
+.reveal{
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--t-slow), transform var(--t-slow);
+}
+.reveal.in{ opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity: 1; transform: none; transition: none; }
+  .running .dot{ animation: none; }
+  html{ scroll-behavior: auto; }
+}
+
+/* ────────  PRINT  ──────── */
+@media print{
+  body::before, .progress, .running, .lang-toggle, footer .signoff{ display: none !important; }
+  body{ background:#fff; color:#000; }
+  section{ padding: 18px 0; page-break-inside: avoid; }
+  .masthead{ padding: 12px 0 24px; }
+  h1.name{ font-size: 60px; }
+  .chapter-head h2{ font-size: 28px; }
+  .acad-item, .pub, .honor{ break-inside: avoid; }
+}
 </style>
 </head>
 <body data-lang="en">
 
-<!-- Nav -->
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a href="#" class="brand">
-      <span class="brand-dot"></span>
-      <span class="lang-en">Lin Jiongqi</span>
-      <span class="lang-zh">林炯圻</span>
-    </a>
-    <div class="nav-links">
-      <a href="#about"><span class="lang-en">About</span><span class="lang-zh">关于</span></a>
-      <a href="#skills"><span class="lang-en">Skills</span><span class="lang-zh">技能</span></a>
-      <a href="#experience"><span class="lang-en">Experience</span><span class="lang-zh">经历</span></a>
-      <a href="#projects"><span class="lang-en">Projects</span><span class="lang-zh">项目</span></a>
-      <a href="#education"><span class="lang-en">Education</span><span class="lang-zh">教育</span></a>
-      <a href="#awards"><span class="lang-en">Awards</span><span class="lang-zh">荣誉</span></a>
+<div class="progress" aria-hidden="true"><i id="prog"></i></div>
+
+<header class="running">
+  <div class="wrap running-inner">
+    <div class="left">
+      <span class="crest">The Lin Almanac</span>
     </div>
-    <button class="lang-toggle" id="langToggle" aria-label="Switch language">
-      <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      <span id="langLabel">中文</span>
-    </button>
-  </div>
-</nav>
-
-<!-- Hero -->
-<header class="hero">
-  <div class="wrap">
-    <div class="eyebrow">
-      <span class="pulse"></span>
-      <span class="lang-en">Available · Singapore</span>
-      <span class="lang-zh">新加坡 · 欢迎沟通</span>
-    </div>
-
-    <h1 class="name">
-      <span class="lang-en">Lin Jiongqi —<br /><em>Product builder</em> at the<br />edge of AI &amp; data.</span>
-      <span class="lang-zh">林炯圻<br /><em>AI × 数据 × 产品</em></span>
-    </h1>
-
-    <p class="tagline">
-      <span class="lang-en">Leading an in-house AI platform 0→1 at HeyGen. Focus: <strong>AI agents</strong> and <strong>full-stack engineering</strong>. NUS Master's student with two first-author SCI reviews.</span>
-      <span class="lang-zh">在 HeyGen，从 0 到 1 带 AI 平台<br /><strong>AI Agent</strong> · <strong>全栈开发</strong><br />NUS 硕士在读 · 一作 SCI 综述 ×2</span>
-    </p>
-
-    <div class="meta-row">
-      <a class="chip" href="mailto:e1538714@u.nus.edu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>
-        <span class="lang-en">e1538714@u.nus.edu</span>
-        <span class="lang-zh">1760070012@qq.com</span>
-      </a>
-      <a class="chip lang-en" href="tel:+6583748503">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
-        +65 8374 8503
-      </a>
-      <a class="chip lang-zh" href="tel:+8618959016356">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
-        +86 189 5901 6356
-      </a>
-      <a class="chip" href="https://www.linkedin.com/in/lin-jiongqi-a2609a37a" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
-        LinkedIn
-      </a>
+    <nav aria-label="Sections">
+      <a href="#now"><span class="lang-en">Now</span><span class="lang-zh">现在</span></a>
+      <a href="#work"><span class="lang-en">Work</span><span class="lang-zh">经历</span></a>
+      <a href="#capabilities"><span class="lang-en">Capabilities</span><span class="lang-zh">能力</span></a>
+      <a href="#academic"><span class="lang-en">Academic</span><span class="lang-zh">学术</span></a>
+      <a href="#honors"><span class="lang-en">Honors</span><span class="lang-zh">荣誉</span></a>
+      <a href="#contact"><span class="lang-en">Contact</span><span class="lang-zh">联系</span></a>
+    </nav>
+    <div class="right">
+      <span><span class="dot" aria-hidden="true"></span><span class="lang-en">Singapore</span><span class="lang-zh">新加坡</span></span>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+        <span class="lang-en">中 / 文</span>
+        <span class="lang-zh">EN</span>
+      </button>
     </div>
   </div>
 </header>
 
-<!-- About -->
-<section id="about">
+<!-- ───── MASTHEAD ───── -->
+<section class="masthead" id="top">
   <div class="wrap">
-    <div class="about-grid">
-      <aside class="about-aside">
-        01 — <span class="lang-en">About</span><span class="lang-zh">关于</span><br />
-        <span style="color: var(--ink-soft); font-family: var(--sans); font-size: 13px;">
-          <span class="lang-en">A short intro.</span>
-          <span class="lang-zh">先简单聊几句。</span>
+    <div class="vol reveal">
+      <div class="left">
+        <span>Vol. I · No. 04</span>
+      </div>
+      <div class="right">
+        <span class="lang-en">An almanac of practice · MMXXVI</span>
+        <span class="lang-zh">实践年鉴 · 二〇二六</span>
+      </div>
+    </div>
+
+    <div class="title-block reveal" style="transition-delay:.08s">
+      <h1 class="name">
+        <span class="lang-en">Lin <em>Jiongqi</em></span>
+        <span class="lang-zh">林 <em>炯圻</em></span>
+        <span class="cn">
+          <span class="lang-en">林炯圻</span>
+          <span class="lang-zh">LIN JIONGQI</span>
         </span>
-      </aside>
-      <div class="about-body">
-        <div class="lang-en">
-          <p>I'm currently interning at <strong>HeyGen</strong>, building an in-house AI data annotation platform from 0→1. The project unfolded across three phases:</p>
-          <ol class="phase-list">
-            <li><strong>Scoping the project.</strong> Aligned the algorithm team and outsourced annotators; consolidated business-side (budget, vendor exit, data governance) and research-side (annotation types, throughput, QA) needs into a single PRD.</li>
-            <li><strong>Building the platform.</strong> Shipped the full stack (React + FastAPI + Postgres) and CI/CD across three platforms; in parallel, built a companion <strong>harness system</strong> that standardized the model-eval pipeline. Led prod incident response when things went sideways.</li>
-            <li><strong>Managing the freelancers.</strong> Once live, opened the platform to external annotators — owning throughput, quality, and day-to-day operations.</li>
-          </ol>
-          <p>Now in production, delivering <strong>100k+ labeled videos/week</strong> for foundation-model training.</p>
-          <p>I work end-to-end: <em>define the product</em>, <em>write the full stack</em>, <em>wire in the AI / agent layer</em>, <em>ship and operate it</em>.</p>
-          <p>On the academic side, I'm a <strong>Master's student at NUS</strong> — two first-author SCI reviews, plus an ongoing research project applying ML to vibrational spectroscopy.</p>
+      </h1>
+    </div>
+
+    <div class="lede">
+      <p class="quote reveal" style="transition-delay:.18s">
+        <span class="lang-en">A product builder shipping <em>AI data platforms</em> from zero to one — equal parts strategy, full-stack engineering, and field-grade research.</span>
+        <span class="lang-zh">从 0 到 1 交付 <em>AI 数据平台</em> 的产品建造者；产品策略、全栈工程与一线科研三位一体。</span>
+      </p>
+
+      <dl class="meta reveal" style="transition-delay:.28s">
+        <div class="row">
+          <dt><span class="lang-en">Now</span><span class="lang-zh">现在</span></dt>
+          <dd>
+            <span class="lang-en">Tech PM Intern · HeyGen (AI Data Platform)</span>
+            <span class="lang-zh">技术产品经理实习生 · HeyGen（AI 数据平台）</span>
+          </dd>
         </div>
-        <div class="lang-zh">
-          <p>目前在 <strong>HeyGen 实习</strong>，从 0 到 1 搭一个内部 AI 数据标注平台。整个项目大致分三个阶段：</p>
-          <ol class="phase-list">
-            <li><strong>把项目摸清楚。</strong>和算法团队、外包团队对齐需求，把业务侧（预算、供应商退出、数据治理）和研发侧（标注类型、吞吐、QA 流程）的诉求拢成一份 PRD。</li>
-            <li><strong>把平台搭起来。</strong>定架构、写前后端（React + FastAPI + Postgres）、打通三个平台的 CI/CD；同步搭了一套配套的 <strong>harness 评测系统</strong>，把模型评测沉淀成标准化流水线。线上事故的排查恢复也是我顶。</li>
-            <li><strong>管外包标注员。</strong>系统上线后开放给 freelancer，盯进度、保质量、维护日常运转。</li>
-          </ol>
-          <p>系统目前已经上线，每周给研究团队产出 <strong>100k+ 条标注视频</strong>，喂基础模型训练。</p>
-          <p>我习惯端到端把事做完：<em>定义产品</em>、<em>写全栈</em>、<em>把 AI / Agent 接进去</em>、<em>推上线再扛运维</em>。</p>
-          <p>学术背景上，我是 <strong>NUS 硕士在读</strong> —— 一作发过两篇 SCI 综述，研究生阶段在做一个振动光谱结合机器学习的项目。</p>
+        <div class="row">
+          <dt><span class="lang-en">Study</span><span class="lang-zh">在读</span></dt>
+          <dd>
+            <span class="lang-en">M.Sc. Food Science &amp; Human Nutrition · NUS</span>
+            <span class="lang-zh">食品科学与人类营养学硕士 · 新加坡国立大学</span>
+          </dd>
         </div>
-      </div>
+        <div class="row">
+          <dt><span class="lang-en">Build</span><span class="lang-zh">在做</span></dt>
+          <dd>ResumAI · resumai-tpcc</dd>
+        </div>
+        <div class="row">
+          <dt><span class="lang-en">Email</span><span class="lang-zh">邮箱</span></dt>
+          <dd><a href="mailto:linjiongqi@gmail.com">linjiongqi@gmail.com</a></dd>
+        </div>
+        <div class="row">
+          <dt><span class="lang-en">Phone</span><span class="lang-zh">电话</span></dt>
+          <dd><a href="tel:+8618959016356">+86 189 5901 6356</a></dd>
+        </div>
+        <div class="row">
+          <dt>Linked</dt>
+          <dd><a href="https://www.linkedin.com/in/lin-jiongqi-a2609a37a" target="_blank" rel="noopener">in/lin-jiongqi</a></dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="ornament reveal" style="transition-delay:.42s">
+      <span>Issued from Singapore</span>
+      <span class="dia">◇</span>
+      <span class="lang-en">For long-form reading</span>
+      <span class="lang-zh">值得细读</span>
     </div>
   </div>
 </section>
 
-<!-- Skills -->
-<section id="skills">
+<!-- ───── NOW ───── -->
+<section id="now">
   <div class="wrap">
-    <div class="section-head">
-      <div class="section-num">02 — <span class="lang-en">Skills</span><span class="lang-zh">技能</span></div>
-      <h2 class="section-title">
-        <span class="lang-en">Tools &amp; <em>tradecraft.</em></span>
-        <span class="lang-zh">我用的<em>工具栈</em>。</span>
+    <div class="chapter-head reveal">
+      <div class="roman">
+        I.
+        <small class="lang-en">The State of Things</small>
+        <small class="lang-zh">当前状态</small>
+      </div>
+      <h2>
+        <span class="lang-en">A snapshot, <em>circa</em> now.</span>
+        <span class="lang-zh">关于此刻的<em>速写</em>。</span>
       </h2>
     </div>
 
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h4><span class="icon">◆</span><span class="lang-en">AI &amp; ML</span><span class="lang-zh">人工智能与机器学习</span></h4>
-        <div class="tags">
-          <span class="tag">Diffusion Transformer</span>
-          <span class="tag">TensorFlow</span>
-          <span class="tag">PyTorch</span>
-          <span class="tag">LangChain</span>
-          <span class="tag lang-en">Supervised Learning</span>
-          <span class="tag lang-zh">监督学习</span>
-          <span class="tag lang-en">Unsupervised Learning</span>
-          <span class="tag lang-zh">无监督学习</span>
-          <span class="tag">SVM</span>
+    <div class="now-grid">
+      <article class="now-card reveal">
+        <div class="tag">
+          <span class="lang-en">In the seat</span>
+          <span class="lang-zh">在岗</span>
         </div>
-      </div>
-      <div class="skill-card">
-        <h4><span class="icon">⌘</span><span class="lang-en">Engineering</span><span class="lang-zh">工程开发</span></h4>
-        <div class="tags">
-          <span class="tag">React</span>
-          <span class="tag">Vite</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">FastAPI</span>
-          <span class="tag">Flask</span>
-          <span class="tag">Python</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Redis</span>
-          <span class="tag">Celery</span>
-          <span class="tag">SQL</span>
+        <h3>HeyGen</h3>
+        <div class="sub">
+          <span class="lang-en">Tech PM Intern · AI Data Platform</span>
+          <span class="lang-zh">技术产品经理实习生 · AI 数据平台</span>
         </div>
-      </div>
-      <div class="skill-card">
-        <h4><span class="icon">▣</span><span class="lang-en">Product &amp; Design</span><span class="lang-zh">产品与设计</span></h4>
-        <div class="tags">
-          <span class="tag">Figma</span>
-          <span class="tag">Jira</span>
-          <span class="tag">Linear</span>
-          <span class="tag">Notion</span>
-          <span class="tag lang-en">Prompt Engineering</span>
-          <span class="tag lang-zh">提示词工程</span>
-          <span class="tag lang-en">Stakeholder Alignment</span>
-          <span class="tag lang-zh">跨部门沟通</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h4><span class="icon">✦</span><span class="lang-en">Domain &amp; Languages</span><span class="lang-zh">领域与语言</span></h4>
-        <div class="tags">
-          <span class="tag lang-en">Food Science</span>
-          <span class="tag lang-zh">食品科学</span>
-          <span class="tag lang-en">Vibrational Spectroscopy</span>
-          <span class="tag lang-zh">振动光谱</span>
-          <span class="tag lang-en">Bioactive Compounds</span>
-          <span class="tag lang-zh">生物活性成分</span>
-          <span class="tag lang-en">English</span>
-          <span class="tag lang-zh">英语</span>
-          <span class="tag lang-en">Mandarin</span>
-          <span class="tag lang-zh">普通话</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Experience -->
-<section id="experience">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="section-num">03 — <span class="lang-en">Experience</span><span class="lang-zh">经历</span></div>
-      <h2 class="section-title">
-        <span class="lang-en">Where I've <em>shipped.</em></span>
-        <span class="lang-zh">我<em>待过</em>的地方。</span>
-      </h2>
-    </div>
-
-    <div class="timeline">
-      <article class="entry">
-        <div class="entry-meta">
-          <span class="date"><span class="lang-en">2025.11 — Present</span><span class="lang-zh">2025.11 — 至今</span></span>
-          <span class="lang-en">Singapore<br />Video Data Intern</span>
-          <span class="lang-zh">新加坡<br />视频数据实习生</span>
-        </div>
-        <div>
-          <h3 class="entry-role">
-            <span class="lang-en">HeyGen — AI Data Annotation Platform</span>
-            <span class="lang-zh">HeyGen — AI 数据标注平台</span>
-          </h3>
-          <div class="entry-org">
-            <span class="lang-en">In-house build to replace third-party SaaS <span class="sep">•</span> Now in production</span>
-            <span class="lang-zh">自研系统，替掉原先的第三方 SaaS <span class="sep">•</span> 已上线</span>
-          </div>
-
-          <div class="phase">
-            <div class="phase-label"><span class="lang-en">Phase 1 · Product definition</span><span class="lang-zh">第一阶段 · 产品定义</span></div>
-            <ul class="lang-en">
-              <li><strong>Identified the problem</strong> — third-party annotation SaaS bottlenecked the company with high per-seat licensing, rigid workflows, and data-privacy risk on proprietary training video; proposed building in-house.</li>
-              <li><strong>Bridged business and research</strong> — gathered business constraints (budget, vendor exit, data governance) and research requirements (annotation types, throughput, QA workflows) into a shared spec aligned with stakeholders.</li>
-            </ul>
-            <ul class="lang-zh">
-              <li><strong>把问题摆上桌</strong> — 原先用的第三方标注 SaaS 痛点很明显：按席位收费太贵、工作流死板套不进我们的标注流程、自家训练视频走外部供应商有数据安全风险。提了自研方案。</li>
-              <li><strong>串起算法团队和外包标注团队</strong> — 把业务侧（预算、供应商退出、数据治理）和研发侧（标注类型、吞吐、QA 流程）的需求拢到一份 PRD 里，和各方对齐边界。</li>
-            </ul>
-          </div>
-
-          <div class="phase">
-            <div class="phase-label"><span class="lang-en">Phase 2 · Build &amp; operate</span><span class="lang-zh">第二阶段 · 构建与运维</span></div>
-            <ul class="lang-en">
-              <li><strong>Designed the framework</strong> — full-stack architecture on React 19 + TypeScript + Vite (frontend) and FastAPI + PostgreSQL + Redis + Celery (backend), with a config-driven JSONB template engine supporting <strong>10 annotation types</strong> so research/ops can launch new campaigns without frontend changes (<strong>~1 week → ~10 min</strong> onboarding).</li>
-              <li><strong>Built CI/CD across 3 platforms</strong> — frontend on Vercel (preview env auto-spawned per PR), backend on AWS EC2 (GitHub Actions → rsync + alembic upgrade head + systemd restart), database on Supabase; <strong>~30s from merge to live</strong>.</li>
-              <li><strong>Built a companion harness system in parallel</strong> — while writing the front- and back-end, also shipped an in-house harness that turned ad-hoc model-evaluation scripts into a standardized pipeline the algorithm team can spin up on demand.</li>
-              <li><strong>Now in production</strong>, opened to external annotators — delivers <strong>100k+ labeled videos/week</strong> to the research team for foundation-model training.</li>
-              <li><strong>Led prod incident response</strong> — diagnosed a cascading slowdown rooted in long-held DB transactions during external ffprobe / R2 calls × uvicorn 0.45's GIL-blocking healthcheck; shipped a session-release refactor + <code class="inline">idle_in_transaction_session_timeout</code> to recover.</li>
-            </ul>
-            <ul class="lang-zh">
-              <li><strong>定架构</strong> — 前端 React 19 + TypeScript + Vite，后端 FastAPI + PostgreSQL + Redis + Celery，再加一个配置驱动的 JSONB 模板引擎，覆盖 <strong>10 种标注类型</strong>。研发和运维上新项目不用改前端代码，启动时间从<strong>约 1 周压到约 10 分钟</strong>。</li>
-              <li><strong>三个平台一条 CI/CD</strong> — 前端 Vercel（每个 PR 自动起预览环境），后端 AWS EC2（GitHub Actions → rsync + alembic upgrade head + systemd restart），数据库 Supabase；<strong>从合并到上线大约 30 秒</strong>。</li>
-              <li><strong>同步搭了一套配套的 harness 系统</strong> — 写前后端的同时也把这块做了，把原本零散的模型评测脚本沉淀成标准化流水线，算法团队想跑新评测随时能起。</li>
-              <li><strong>已上线生产并对外部标注员开放</strong>，每周给研究团队产出 <strong>100k+ 条标注视频</strong>，喂基础模型训练。</li>
-              <li><strong>带头扛过一次线上事故</strong> — 定位到根因：外部 ffprobe / R2 调用期间数据库事务长时间不释放，再叠加 uvicorn 0.45 GIL 阻塞健康检查，整个系统级联变慢；最后靠重构会话释放逻辑 + <code class="inline">idle_in_transaction_session_timeout</code> 把服务救回来。</li>
-            </ul>
-          </div>
-        </div>
+        <p>
+          <span class="lang-en">Leading a self-built video-annotation platform that supplies 100k+ high-quality clips per week to in-house model training.</span>
+          <span class="lang-zh">主导自研视频标注平台，每周向核心大模型稳定供给 10 万 + 高质量标注视频。</span>
+        </p>
       </article>
 
-      <article class="entry">
-        <div class="entry-meta">
-          <span class="date">2022.06 — 2023.05</span>
-          <span class="lang-en">Guangzhou, China<br />Research Assistant</span>
-          <span class="lang-zh">中国 · 广州<br />研究助理</span>
+      <article class="now-card reveal" style="transition-delay:.08s">
+        <div class="tag">
+          <span class="lang-en">On campus</span>
+          <span class="lang-zh">在校</span>
+        </div>
+        <h3>NUS</h3>
+        <div class="sub">
+          <span class="lang-en">M.Sc. Food Science &amp; Human Nutrition</span>
+          <span class="lang-zh">食品科学与人类营养学硕士</span>
+        </div>
+        <p>
+          <span class="lang-en">Researching rapid label-free screening of antibacterial citrus peel via vibrational spectroscopy &amp; machine learning.</span>
+          <span class="lang-zh">研究方向：基于振动光谱与机器学习的抗菌柑橘皮快速无标记筛选。</span>
+        </p>
+      </article>
+
+      <article class="now-card reveal" style="transition-delay:.16s">
+        <div class="tag">
+          <span class="lang-en">On the side</span>
+          <span class="lang-zh">在做</span>
+        </div>
+        <h3>ResumAI</h3>
+        <div class="sub">
+          <span class="lang-en">Founder · Product &amp; Architecture</span>
+          <span class="lang-zh">创立者 · 产品与架构</span>
+        </div>
+        <p>
+          <span class="lang-en">Two core features — JD ⇄ résumé semantic matching, and JD-directed AI rewrite — built to sharpen application accuracy end-to-end.</span>
+          <span class="lang-zh">确立并落地"JD-简历智能语义匹配度分析"与"基于特定 JD 的简历定向 AI 优化与重写"两大核心功能，精准提升求职效率。</span>
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ───── WORK ───── -->
+<section id="work">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <div class="roman">
+        II.
+        <small class="lang-en">Selected Work</small>
+        <small class="lang-zh">代表性工作</small>
+      </div>
+      <h2>
+        <span class="lang-en">Selected work.</span>
+        <span class="lang-zh">代表性工作。</span>
+      </h2>
+    </div>
+
+    <!-- HeyGen ─────────────── -->
+    <article class="work-item reveal">
+      <header class="work-head">
+        <div class="label">
+          <span class="lang-en">№ 01 · Industry</span>
+          <span class="lang-zh">№ 01 · 业界</span>
+        </div>
+        <h3>
+          HeyGen
+          <span class="role">
+            <span class="lang-en">Tech PM Intern · AI Data Platform</span>
+            <span class="lang-zh">技术产品经理实习生 · AI 数据平台</span>
+          </span>
+        </h3>
+        <div class="when">
+          <span class="lang-en">Nov 2025 — Present</span>
+          <span class="lang-zh">2025.11 — 至今</span>
+        </div>
+      </header>
+
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-title">
+            <span class="lang-en">Product</span>
+            <span class="lang-zh">产品管理</span>
+          </div>
+          <div class="phase-body">
+            <ul>
+              <li>
+                <span class="lang-en">Diagnosed the bottlenecks of a third-party annotation SaaS — <strong>seat cost, rigid workflow, training-video privacy risk</strong> — and led the case to build in-house.</span>
+                <span class="lang-zh">识别第三方标注 SaaS 的核心瓶颈（席位成本、工作流僵化、专有训练视频隐私风险），主导自研立项与可行性论证。</span>
+              </li>
+              <li>
+                <span class="lang-en">Designed a <strong>config-driven JSONB template engine</strong> covering 10 core annotation types — operators ship new projects in minutes with <em>zero code</em>.</span>
+                <span class="lang-zh">主导设计配置驱动的 JSONB 模板引擎产品架构，标准化 10 种核心视频标注类型，运营人员“<em>零代码</em>”分钟级上线。</span>
+              </li>
+              <li>
+                <span class="lang-en">Owned the post-launch UAT loop end-to-end; production data flow stabilized at <strong>100k+ annotated videos / week</strong>, supporting core-model iteration cadence.</span>
+                <span class="lang-zh">主导 UAT 与“反馈 → 排期 → 敏捷迭代”闭环；产品化交付，稳定供给 <strong>10 万 + / 周</strong> 高质量标注视频，支撑核心大模型迭代。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-title">
+            <span class="lang-en">Architecture &amp; Delivery</span>
+            <span class="lang-zh">方案架构与交付</span>
+          </div>
+          <div class="phase-body">
+            <ul>
+              <li>
+                <span class="lang-en">Owned the high-performance full-stack architecture on <strong>React 19 · FastAPI · PostgreSQL · Celery</strong>.</span>
+                <span class="lang-zh">负责基于 React 19、FastAPI、PostgreSQL、Celery 的高性能全栈敏捷架构设计。</span>
+              </li>
+              <li>
+                <span class="lang-en">Built an automated CI/CD pipeline across <strong>Vercel · AWS EC2 · Supabase</strong> — merge to production in <em>≈ 30 seconds</em>.</span>
+                <span class="lang-zh">规划并搭建跨 Vercel、AWS EC2、Supabase 的自动化 CI/CD 管线，代码合并到生产上线 <em>仅需 30 秒</em>。</span>
+              </li>
+              <li>
+                <span class="lang-en">Drove cross-team triage on a high-concurrency cascading-DB incident; reworked session strategy to restore stability.</span>
+                <span class="lang-zh">主导高可用运维与应急响应，针对高并发引起的数据库级联性能问题，跨团队优化会话策略，保障系统稳定性。</span>
+              </li>
+              <li>
+                <span class="lang-en">Built an internal <strong>harness</strong> system — new-project spin-up cut from 1 week down to <em>10 minutes</em>.</span>
+                <span class="lang-zh">搭建 harness 系统，将新项目上线周期由 1 周缩短至 <em>10 分钟</em>，大幅提升业务敏捷度。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-title">
+            <span class="lang-en">Stakeholders</span>
+            <span class="lang-zh">项目管理</span>
+          </div>
+          <div class="phase-body">
+            <ul>
+              <li>
+                <span class="lang-en">Acted as the bridge between algorithm R&amp;D and the outsourced annotation team — translating budget, data-governance, and vendor-exit constraints into a single shared spec, locking scope.</span>
+                <span class="lang-zh">担任算法研发与外包标注团队的核心桥梁，将预算、数据治理、供应商退出等限制与多变需求统一为共享规范，管理干系人期望并锁定范围。</span>
+              </li>
+              <li>
+                <span class="lang-en">Led the 0 → 1 lifecycle of the AI video-annotation platform — full-stack architecture and automated delivery shipped, platform now open to external annotators.</span>
+                <span class="lang-zh">独立主导 AI 视频数据标注平台从 0 到 1 全生命周期建设，推动全栈架构与自动化交付落地，平台已开放给外部标注员。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ResumAI ─────────────── -->
+    <article class="work-item reveal">
+      <header class="work-head">
+        <div class="label">
+          <span class="lang-en">№ 02 · Independent</span>
+          <span class="lang-zh">№ 02 · 自主项目</span>
+        </div>
+        <h3>
+          <em>ResumAI</em>
+          <span class="role">
+            <span class="lang-en">An AI résumé analysis platform — resumai-tpcc</span>
+            <span class="lang-zh">人工智能简历分析平台 · resumai-tpcc</span>
+          </span>
+        </h3>
+        <div class="when">
+          <span class="lang-en">2025 — Present</span>
+          <span class="lang-zh">2025 — 至今</span>
+        </div>
+      </header>
+
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-title">
+            <span class="lang-en">Discovery</span>
+            <span class="lang-zh">市场调研</span>
+          </div>
+          <div class="phase-body">
+            <ul>
+              <li>
+                <span class="lang-en">Targeted the pain of <strong>manual JD-tailoring</strong> — slow edits, low match-rates, low conversion. Locked the two core features: <em>semantic JD ⟷ résumé matching</em> and <em>JD-directed AI rewrite</em>.</span>
+                <span class="lang-zh">调研求职者面对不同 JD 手动改简历耗时长、匹配度低导致通过率差的痛点；落地两大核心功能：<em>JD-简历智能语义匹配度分析</em>与<em>基于特定 JD 的简历定向优化与重写</em>。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-title">
+            <span class="lang-en">Model Strategy</span>
+            <span class="lang-zh">大模型决策</span>
+          </div>
+          <div class="phase-body">
+            <ul>
+              <li>
+                <span class="lang-en">Designed a <strong>provider-abstracted LLM layer</strong> (OpenAI, Gemini, ...) — A/B model cost vs. quality without touching the frontend.</span>
+                <span class="lang-zh">设计兼容多服务商（OpenAI、Gemini 等）的抽象架构；前端不变更，支持跨模型成本与性能的 A/B 测试，保证文本质量同时优化运营成本。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-title">
+            <span class="lang-en">Delivery</span>
+            <span class="lang-zh">敏捷交付</span>
+          </div>
+          <div class="phase-body">
+            <ul>
+              <li>
+                <span class="lang-en">Owned the 0 → 1 release loop; introduced <strong>gray release</strong> in the CI/CD pipeline so new features ship fast without blast radius.</span>
+                <span class="lang-zh">独立把控 0→1 敏捷生命周期；在自动化交付中引入灰度发布机制，实现高频极速迭代与用户数据反哺。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-title">
+            <span class="lang-en">Quality Guardrails</span>
+            <span class="lang-zh">质量治理</span>
+          </div>
+          <div class="phase-body">
+            <ul>
+              <li>
+                <span class="lang-en">Built an <strong>AI-quality defense layer</strong> against hallucinated experience and broken formats — structured prompts + strict JSON Schema keep rewrites aligned to the JD while the user's real history stays intact.</span>
+                <span class="lang-zh">针对大模型在简历生成中可能出现的“幻觉”与格式碎裂构建 AI 质量防御体系；结构化提示词系统 + 标准 JSON Schema 强约束，确保对齐 JD 同时保持真实数据稳定。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ───── CAPABILITIES ───── -->
+<section id="capabilities">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <div class="roman">
+        III.
+        <small class="lang-en">The Toolkit</small>
+        <small class="lang-zh">能力图谱</small>
+      </div>
+      <h2>
+        <span class="lang-en">Things picked up <em>by shipping</em>.</span>
+        <span class="lang-zh">在<em>交付中</em>积累的能力。</span>
+      </h2>
+    </div>
+
+    <!-- AI Practice spotlight -->
+    <div class="ai-practice reveal">
+      <div class="subsection-title">
+        <span class="lang-en">AI Practice · AI 实务</span>
+        <span class="lang-zh">AI 实务 · AI Practice</span>
+      </div>
+
+      <div class="ai-grid">
+        <!-- Column A — Frontier Tooling -->
+        <div class="ai-col">
+          <div class="ai-cat">
+            <strong><span class="lang-en">A · Frontier Tooling</span><span class="lang-zh">A · 前沿 AI 工具</span></strong>
+            <span class="en-tag lang-en">前沿 AI 智能化工具</span>
+            <span class="zh-tag lang-zh">Frontier AI Tooling</span>
+          </div>
+
+          <article class="ai-card">
+            <div class="num">01</div>
+            <h3>
+              <span class="lang-en"><em>Vibe Coding</em> &amp; MCP</span>
+              <span class="lang-zh">Vibe Coding 与 <em>MCP 架构</em></span>
+            </h3>
+            <div class="keys">Cursor · Claude Code · MCP (Model Context Protocol)</div>
+            <p>
+              <span class="lang-en">Fluent with vibe-coding tools and MCP architectural thinking — custom Tools &amp; Skills wired into AI-driven automated workflows.</span>
+              <span class="lang-zh">熟练运用 vibe coding 编程工具，具备 MCP 架构思维，自封装 Tools 与 Skills，打造高度自动化的 AI 驱动型工作流。</span>
+            </p>
+          </article>
+
+          <article class="ai-card">
+            <div class="num">02</div>
+            <h3>
+              <span class="lang-en">Harness <em>Engineering</em></span>
+              <span class="lang-zh">驾驭 <em>Harness</em> 工程</span>
+            </h3>
+            <div class="keys">scaffold · zero-code dev · ops standard</div>
+            <p>
+              <span class="lang-en">Build the optimization scaffolding so a zero-code PM can ship small features on demand without an engineer.</span>
+              <span class="lang-zh">搭建良好的优化规范与环境，让 0 代码基础的项目经理也能根据需要进行简单的功能开发。</span>
+            </p>
+          </article>
+
+          <article class="ai-card">
+            <div class="num">03</div>
+            <h3>
+              <span class="lang-en">Multi-LLM <em>Orchestration</em></span>
+              <span class="lang-zh">主流大模型 <em>API 协同</em></span>
+            </h3>
+            <div class="keys">OpenAI · Gemini · DeepSeek · Anthropic · factory pattern</div>
+            <p>
+              <span class="lang-en">Production integrations across OpenAI / Gemini / DeepSeek / Anthropic with a multi-provider abstraction layer (factory pattern).</span>
+              <span class="lang-zh">熟练集成 OpenAI / Gemini / DeepSeek / Anthropic 等头部商用大模型，具备多模型提供商抽象层（工厂模式）的设计能力。</span>
+            </p>
+          </article>
+        </div>
+
+        <!-- Column B — LLM Engineering -->
+        <div class="ai-col">
+          <div class="ai-cat">
+            <strong><span class="lang-en">B · LLM Engineering</span><span class="lang-zh">B · 大模型应用与智能体</span></strong>
+            <span class="en-tag lang-en">大模型应用与智能体架构</span>
+            <span class="zh-tag lang-zh">LLM Application &amp; Agent Architecture</span>
+          </div>
+
+          <article class="ai-card">
+            <div class="num">04</div>
+            <h3>
+              <span class="lang-en"><em>Structured</em> Prompting</span>
+              <span class="lang-zh"><em>结构化</em>提示词工程</span>
+            </h3>
+            <div class="keys">JSON Schema · custom parser · anti-hallucination</div>
+            <p>
+              <span class="lang-en">Structured prompts with custom parsing logic + strict JSON Schema — kills hallucination and broken outputs so downstream data quality holds.</span>
+              <span class="lang-zh">擅长设计带自定义解析逻辑的结构化 Prompt，配合 JSON Schema 强约束模型输出，硬核解决幻觉与格式碎裂的痛点，保障下游数据质量。</span>
+            </p>
+          </article>
+
+          <article class="ai-card">
+            <div class="num">05</div>
+            <h3>
+              <span class="lang-en">Model Strategy &amp; <em>A/B</em></span>
+              <span class="lang-zh">模型策略与 <em>A/B 测试</em></span>
+            </h3>
+            <div class="keys">cost · quality · provider-agnostic</div>
+            <p>
+              <span class="lang-en">Run cross-provider cost / quality A/B without touching the frontend — continuously tune the daily ops cost of LLM products.</span>
+              <span class="lang-zh">在不变更前端的情况下，针对不同 LLM 服务商进行跨模型的成本 / 性能 A/B 测试，持续优化大模型产品的日常运营成本。</span>
+            </p>
+          </article>
+
+          <article class="ai-card">
+            <div class="num">06</div>
+            <h3>
+              <span class="lang-en">Agent <em>Ecosystem</em></span>
+              <span class="lang-zh">智能体<em>生态</em></span>
+            </h3>
+            <div class="keys">LangChain · generative-AI core · agent design</div>
+            <p>
+              <span class="lang-en">Deep with the LangChain Agent framework — designing generative-AI core logic and AI-agent architectures.</span>
+              <span class="lang-zh">深入理解 LangChain Agent 开发框架，具备生成式 AI 核心逻辑及 AI Agent 智能体架构的设计能力。</span>
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rest of the toolkit -->
+    <div class="subsection-title reveal">
+      <span class="lang-en">The Rest of the Toolkit · 其余工具栈</span>
+      <span class="lang-zh">其余工具栈 · The Rest of the Toolkit</span>
+    </div>
+
+    <div class="caps reveal">
+      <div class="cap-row">
+        <div class="k"><span class="lang-en">Product &amp; PM</span><span class="lang-zh">产品与项目管理</span></div>
+        <div class="v">
+          <span class="lang-en">Scoping</span><span class="lang-zh">需求与范围控制</span>
+          · <span>UAT</span>
+          · <span class="lang-en">PRD writing</span><span class="lang-zh">PRD 文档编写</span>
+          · <span>Jira</span> · <span>Linear</span> · <span>Notion</span> · <span>Figma</span>
+        </div>
+        <div class="n">01</div>
+      </div>
+
+      <div class="cap-row">
+        <div class="k"><span class="lang-en">AI · Adjacent</span><span class="lang-zh">AI · 周边</span></div>
+        <div class="v">
+          <span>Diffusion Transformer (DiT)</span> · <span>ML</span> ·
+          <span class="lang-en">QA Workflow</span><span class="lang-zh">QA Workflow</span>
+        </div>
+        <div class="n">02</div>
+      </div>
+
+      <div class="cap-row">
+        <div class="k"><span class="lang-en">Data</span><span class="lang-zh">数据分析</span></div>
+        <div class="v">
+          <span>SQL / PostgreSQL</span> · <span>Python</span> · <span>Pandas</span> · <span>NumPy</span>
+        </div>
+        <div class="n">03</div>
+      </div>
+
+      <div class="cap-row">
+        <div class="k"><span class="lang-en">Stack</span><span class="lang-zh">技术栈</span></div>
+        <div class="v">
+          <span>RESTful API</span> · <span>FastAPI</span> · <span>React 19</span> ·
+          <span>Vite</span> · <span>Celery</span> · <span>Redis</span>
+        </div>
+        <div class="n">04</div>
+      </div>
+
+      <div class="cap-row">
+        <div class="k"><span class="lang-en">Cloud &amp; Ops</span><span class="lang-zh">云技术与运维</span></div>
+        <div class="v">
+          <span>AWS — EC2 / S3</span> · <span>CI/CD</span>
+        </div>
+        <div class="n">05</div>
+      </div>
+
+      <div class="cap-row">
+        <div class="k"><span class="lang-en">Languages</span><span class="lang-zh">语言</span></div>
+        <div class="v">
+          <span class="lang-en">English</span><span class="lang-zh">英语</span> ·
+          <span class="lang-en">Mandarin</span><span class="lang-zh">普通话</span>
+        </div>
+        <div class="n">06</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── ACADEMIC ───── -->
+<section id="academic">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <div class="roman">
+        IV.
+        <small class="lang-en">Academic Record</small>
+        <small class="lang-zh">学术记录</small>
+      </div>
+      <h2>
+        <span class="lang-en">Academic.</span>
+        <span class="lang-zh">学术记录。</span>
+      </h2>
+    </div>
+
+    <div class="acad">
+      <div class="acad-item reveal">
+        <div class="when">
+          <div class="label">
+            <span class="lang-en">M.Sc.</span>
+            <span class="lang-zh">硕士</span>
+          </div>
+          <span class="lang-en">Sep 2025 — Present</span>
+          <span class="lang-zh">2025.9 — 至今</span>
         </div>
         <div>
-          <h3 class="entry-role">
+          <h3>
+            <span class="lang-en">National University of Singapore</span>
+            <span class="lang-zh">新加坡国立大学</span>
+          </h3>
+          <div class="deg">
+            <span class="lang-en">Food Science &amp; Human Nutrition · Singapore</span>
+            <span class="lang-zh">食品科学与人类营养学硕士 · 新加坡</span>
+          </div>
+          <p>
+            <span class="lang-en"><em>Research focus —</em> rapid label-free screening of antibacterial citrus peel using vibrational spectroscopy &amp; machine learning.</span>
+            <span class="lang-zh"><em>研究项目 ——</em> 利用振动光谱与机器学习技术快速无标记筛选抗菌柑橘皮。</span>
+          </p>
+        </div>
+        <div></div>
+      </div>
+
+      <div class="acad-item reveal">
+        <div class="when">
+          <div class="label">
+            <span class="lang-en">B.Sc.</span>
+            <span class="lang-zh">学士</span>
+          </div>
+          <span class="lang-en">Sep 2021 — Jul 2024</span>
+          <span class="lang-zh">2021.9 — 2024.7</span>
+        </div>
+        <div>
+          <h3>
             <span class="lang-en">South China Agricultural University</span>
             <span class="lang-zh">华南农业大学</span>
           </h3>
-          <div class="entry-org">
-            <span class="lang-en">College of Food Science Laboratory</span>
-            <span class="lang-zh">食品科学学院实验室</span>
+          <div class="deg">
+            <span class="lang-en">Food Science &amp; Engineering · Guangzhou, China</span>
+            <span class="lang-zh">食品科学与工程学士 · 广东 · 广州</span>
           </div>
-          <ul class="lang-en">
-            <li><strong>Automated experimental data processing</strong> — built a Python cleaning &amp; preprocessing pipeline for unstructured raw data in food-component analysis, improving manual entry/proofreading efficiency by <strong>60%</strong>.</li>
-            <li><strong>Statistical modeling &amp; analysis</strong> — applied ML &amp; statistical methods (e.g., SVM) to extract features and model correlations of <strong>20+ bioactive components</strong>, providing data support for downstream SCI papers.</li>
-            <li><strong>Literature mining &amp; review</strong> — independently retrieved &amp; systematically analyzed <strong>200+ core journal articles</strong>; constructed a knowledge graph and published <strong>two first-author SCI reviews</strong> in <em>Trends in Food Science &amp; Technology</em> and <em>Food Innovation and Advances</em>.</li>
-          </ul>
-          <ul class="lang-zh">
-            <li><strong>实验数据自动化</strong> — 食品组分分析里的原始数据都是非结构化的，用 Python 写了一套自动化清洗 + 预处理流程，把原本人工录入校对的活效率<strong>提升 60%</strong>。</li>
-            <li><strong>统计建模</strong> — 用机器学习和统计方法（比如 SVM）对 <strong>20 多种生物活性成分</strong>做特征提取和建模，给后续的 SCI 论文打数据底子。</li>
-            <li><strong>文献挖掘与综述</strong> — 独立检索并系统分析了 <strong>200+ 篇核心期刊</strong>，画了一张知识图谱把技术路径理清，最终以第一作者在 <em>Trends in Food Science &amp; Technology</em> 和 <em>Food Innovation and Advances</em> 各发了一篇 SCI 综述。</li>
-          </ul>
+          <p>
+            <span class="lang-en">Two first-author SCI review papers during undergraduate years — the academic taste for rigorous summary that has since informed every product spec.</span>
+            <span class="lang-zh">本科期间以第一作者发表两篇 SCI 综述；严谨综合的学术品味，至今仍贯穿在每一份产品文档中。</span>
+          </p>
         </div>
-      </article>
+        <div><span class="gpa">GPA 4.13 / 5</span></div>
+      </div>
+    </div>
+
+    <div class="pubs reveal">
+      <h4><span class="lang-en">Publications</span><span class="lang-zh">出版物</span></h4>
+      <div class="pub">
+        <div class="when">
+          <span class="lang-en">Feb 2026</span>
+          <span class="lang-zh">2026.02</span>
+        </div>
+        <div class="title">
+          A review for bioactive peptides from oyster: functional properties, structure–function relationships and challenges.
+        </div>
+        <div class="venue">Trends in Food Science &amp; Technology</div>
+      </div>
+      <div class="pub">
+        <div class="when">
+          <span class="lang-en">Jan 2025</span>
+          <span class="lang-zh">2025.01</span>
+        </div>
+        <div class="title">
+          Deep Processing and Utilization of Shrimp and Its Byproducts: A Review.
+        </div>
+        <div class="venue">Food Innovation and Advances</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Projects -->
-<section id="projects">
+<!-- ───── HONORS ───── -->
+<section id="honors">
   <div class="wrap">
-    <div class="section-head">
-      <div class="section-num">04 — <span class="lang-en">Projects</span><span class="lang-zh">项目</span></div>
-      <h2 class="section-title">
-        <span class="lang-en">Things I've <em>built.</em></span>
-        <span class="lang-zh">我<em>做过</em>的东西。</span>
+    <div class="chapter-head reveal">
+      <div class="roman">
+        V.
+        <small class="lang-en">Honors</small>
+        <small class="lang-zh">荣誉</small>
+      </div>
+      <h2>
+        <span class="lang-en">Honors.</span>
+        <span class="lang-zh">荣誉清单。</span>
       </h2>
     </div>
 
-    <div class="projects-grid">
-      <div class="project-card">
-        <h4>ResumAI</h4>
-        <div class="sub">
-          <span class="lang-en">AI-Powered Resume Analysis Platform</span>
-          <span class="lang-zh">AI 简历分析平台</span>
+    <div class="honors reveal">
+      <div class="honor">
+        <div class="when">
+          <span class="lang-en">May 2023 — May 2025</span>
+          <span class="lang-zh">2023.5 — 2025.5</span>
         </div>
-        <div class="lang-en">
-          <p><strong>Product vision:</strong> identified the pain of manual resume-to-job matching; designed and shipped a platform that parses unstructured resumes into structured data and recommends matching jobs.</p>
-          <p><strong>LLM architecture:</strong> designed an LLM Provider abstraction layer (Factory Pattern) supporting OpenAI, Gemini, and others — enabling cost/performance A/B testing without frontend changes.</p>
-          <p><strong>Prompt engineering:</strong> structured prompts + custom parsing logic transform raw LLM output into standardized JSON schemas, solving non-determinism and ensuring downstream quality.</p>
-          <p><strong>End-to-end delivery:</strong> full-stack 0→1 (React 18 + FastAPI), CI/CD via GitHub Actions → Firebase Hosting.</p>
+        <div class="title">
+          <span class="lang-en">Second-Class University Scholarship</span>
+          <span class="lang-zh">大学二等奖学金</span>
         </div>
-        <div class="lang-zh">
-          <p><strong>想法：</strong>HR 人工对简历和职位匹配效率太低，做了个 AI 平台，把非结构化的简历自动解析成结构化数据，再智能推岗位。</p>
-          <p><strong>LLM 这一层：</strong>抽出一层 Provider 适配（工厂模式），同时兼容 OpenAI、Gemini 等几家的 API，前端不动就能跨厂商做成本和性能的 A/B。</p>
-          <p><strong>提示词工程：</strong>结构化提示 + 自定义解析逻辑，把模型输出统一成标准 JSON Schema，搞定了 LLM 输出不稳的老问题，下游数据质量也稳了。</p>
-          <p><strong>端到端：</strong>全栈从 0 到 1（React 18 + FastAPI），CI/CD 走 GitHub Actions → Firebase Hosting，迭代很快。</p>
+        <div class="note">
+          <span class="lang-en">3 consecutive years</span>
+          <span class="lang-zh">连续三年</span>
         </div>
       </div>
-
-      <div class="project-card">
-        <h4>
-          <span class="lang-en">Antibacterial Citrus Peels × ML</span>
-          <span class="lang-zh">抗菌柑橘皮 × 机器学习</span>
-        </h4>
-        <div class="sub">
-          <span class="lang-en">NUS Postgraduate Research</span>
-          <span class="lang-zh">新加坡国立大学 · 研究生项目</span>
+      <div class="honor">
+        <div class="when">
+          <span class="lang-en">Feb 2026</span>
+          <span class="lang-zh">2026.02</span>
         </div>
-        <p class="lang-en">Designed and implemented a <strong>vibrational spectroscopy</strong>-based analytical pipeline combined with machine learning to rapidly identify antibacterial properties in citrus peels — improving screening efficiency without chemical labeling.</p>
-        <p class="lang-zh">搭了一条<strong>振动光谱</strong>的分析流程，结合机器学习快速识别柑橘皮里的抗菌特性 —— 不用化学标记，筛选效率提了一大截。</p>
-        <p style="font-family: var(--mono); font-size: 12px; color: var(--ink-mute); margin-top: 18px;">
-          <em class="lang-en">"Rapid and Label-Free Screening of Anti-Bacterial Citrus Peels with Vibrational Spectroscopy and Machine Learning"</em>
-          <em class="lang-zh" style="font-style: normal; font-family: var(--sans);">《利用振动光谱与机器学习快速、无标记筛选抗菌柑橘皮》</em>
-        </p>
+        <div class="title">
+          <span class="lang-en">First-author SCI review — <em>oyster bioactive peptides</em></span>
+          <span class="lang-zh">第一作者 SCI 综述 — <em>牡蛎活性肽</em></span>
+        </div>
+        <div class="note">Trends in Food Science &amp; Technology</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Education -->
-<section id="education">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="section-num">05 — <span class="lang-en">Education</span><span class="lang-zh">教育背景</span></div>
-      <h2 class="section-title">
-        <span class="lang-en">Where I've <em>studied.</em></span>
-        <span class="lang-zh">我<em>念过</em>的学校。</span>
-      </h2>
-    </div>
-
-    <div class="split">
-      <div>
-        <div class="edu-item">
-          <div class="meta"><span class="lang-en">2025.09 — Present · Singapore</span><span class="lang-zh">2025.09 — 至今 · 新加坡</span></div>
-          <h4><span class="lang-en">National University of Singapore</span><span class="lang-zh">新加坡国立大学</span></h4>
-          <p class="lang-en">Master in Food Science and Human Nutrition. Research: rapid, label-free anti-bacterial screening via vibrational spectroscopy + ML.</p>
-          <p class="lang-zh"><strong>食品科学与人类营养学硕士。</strong>研究方向是振动光谱结合机器学习，做快速、无标记的抗菌筛选。</p>
+      <div class="honor">
+        <div class="when">
+          <span class="lang-en">Jan 2025</span>
+          <span class="lang-zh">2025.01</span>
         </div>
-        <div class="edu-item">
-          <div class="meta"><span class="lang-en">2021.09 — 2024.07 · Guangzhou, China</span><span class="lang-zh">2021.09 — 2024.07 · 中国 · 广州</span></div>
-          <h4><span class="lang-en">South China Agricultural University</span><span class="lang-zh">华南农业大学</span></h4>
-          <p class="lang-en">Bachelor in Food Science and Engineering. <strong>GPA: 3.93 / 4.0</strong></p>
-          <p class="lang-zh"><strong>食品科学与工程学士，GPA 4.53 / 5。</strong>本科期间以第一作者发了两篇 SCI 综述。</p>
+        <div class="title">
+          <span class="lang-en">First-author SCI review — <em>shrimp processing</em></span>
+          <span class="lang-zh">第一作者 SCI 综述 — <em>虾及副产物深加工</em></span>
         </div>
-      </div>
-
-      <div>
-        <div class="edu-item">
-          <div class="meta"><span class="lang-en">Community</span><span class="lang-zh">社区</span></div>
-          <h4><span class="lang-en">Tanjong Pagar Community Club Youth Network</span><span class="lang-zh">丹戎巴葛民众俱乐部 · 青年网络</span></h4>
-          <p class="lang-en">Sub-committee, sport interest group (2025.08 — present). Organize training sessions and matches; planned the Children's Day event for the Tanjong Pagar community.</p>
-          <p class="lang-zh">体育兴趣组分委员（2025.08 起）。日常张罗训练和比赛，也牵头办过丹戎巴葛社区的儿童节活动。</p>
-        </div>
+        <div class="note">Food Innovation and Advances</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Awards -->
-<section id="awards">
+<!-- ───── COLOPHON / CONTACT ───── -->
+<footer class="colophon" id="contact">
   <div class="wrap">
-    <div class="section-head">
-      <div class="section-num">06 — <span class="lang-en">Awards &amp; Publications</span><span class="lang-zh">荣誉与发表</span></div>
-      <h2 class="section-title">
-        <span class="lang-en">Selected <em>recognition.</em></span>
-        <span class="lang-zh">挑几个<em>说一下</em>。</span>
-      </h2>
-    </div>
+    <p class="big reveal">
+      <span class="lang-en">If something here resonates — <em>let's talk.</em></span>
+      <span class="lang-zh">如果其中某处与你共鸣 —<em>欢迎来聊。</em></span>
+    </p>
 
-    <div class="split">
-      <div>
-        <div class="award-item">
-          <div class="meta"><span class="lang-en">2026.02 · Trends in Food Science &amp; Technology</span><span class="lang-zh">2026.02 · 《食品科学与技术趋势》</span></div>
-          <h4><span class="lang-en">First Author — Bioactive Peptides from Oyster</span><span class="lang-zh">第一作者 — 牡蛎生物活性肽</span></h4>
-          <p class="lang-en">Review on functional properties, structure-function relationships, and challenges. <em>Forthcoming.</em></p>
-          <p class="lang-zh">综述：功能特性、结构与功能的关系，以及面临的挑战。<em>马上见刊。</em></p>
-        </div>
-        <div class="award-item">
-          <div class="meta"><span class="lang-en">2025.01 · Food Innovation and Advances</span><span class="lang-zh">2025.01 · 《食品创新与进展》</span></div>
-          <h4><span class="lang-en">First Author — Deep Processing of Shrimp Byproducts</span><span class="lang-zh">第一作者 — 虾及其副产品的深度加工与利用</span></h4>
-          <p class="lang-en">Comprehensive review of utilization strategies for shrimp byproducts.</p>
-          <p class="lang-zh">系统梳理了虾副产品的综合利用策略。</p>
-        </div>
-        <div class="award-item">
-          <div class="meta"><span class="lang-en">2024.02 · Science and Technology of Food Industry</span><span class="lang-zh">2024.02 · 《食品工业科技》</span></div>
-          <h4><span class="lang-en">Second Author — Liquid-Nitrogen Quick Freezing</span><span class="lang-zh">第二作者 — 液氮速冻</span></h4>
-          <p class="lang-en">Effect on quality characteristics of prepared chicken steaks during frozen storage.</p>
-          <p class="lang-zh">研究液氮速冻对调理鸡排在冻藏期间品质特性的影响。</p>
+    <div class="colophon-grid">
+      <div class="colo-block reveal">
+        <div class="k"><span class="lang-en">Write</span><span class="lang-zh">联系</span></div>
+        <div class="v">
+          <a href="mailto:linjiongqi@gmail.com">linjiongqi@gmail.com</a>
         </div>
       </div>
-      <div>
-        <div class="award-item">
-          <div class="meta">2023.05 — 2025.05</div>
-          <h4 class="lang-en">College-Level Scholarship · 3 Consecutive Years</h4>
-          <h4 class="lang-zh">校级一等奖学金 · 连续三年</h4>
-          <p class="lang-en">Awarded for three consecutive years during undergraduate study.</p>
-          <p class="lang-zh">本科期间连续三年拿到校级一等奖学金。</p>
+      <div class="colo-block reveal" style="transition-delay:.06s">
+        <div class="k"><span class="lang-en">Call</span><span class="lang-zh">电话</span></div>
+        <div class="v">
+          <a href="tel:+8618959016356">+86 189 5901 6356</a>
         </div>
-        <div class="award-item">
-          <div class="meta"><span class="lang-en">Under Review</span><span class="lang-zh">审稿中</span></div>
-          <h4><span class="lang-en">Two Additional Papers</span><span class="lang-zh">另有两篇论文</span></h4>
-          <p class="lang-en">Currently under peer review.</p>
-          <p class="lang-zh">还在同行评审中，等结果。</p>
+      </div>
+      <div class="colo-block reveal" style="transition-delay:.12s">
+        <div class="k">LinkedIn</div>
+        <div class="v">
+          <a href="https://www.linkedin.com/in/lin-jiongqi-a2609a37a" target="_blank" rel="noopener">in/lin-jiongqi</a>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- Footer -->
-<footer>
-  <div class="wrap">
-    <div class="quote">
-      <span class="lang-en">"Build the thing that bridges research and product."</span>
-      <span class="lang-zh">在研究和产品之间，搭一座桥。</span>
+    <div class="signoff">
+      <span><span class="lang-en">© MMXXVI · Lin Jiongqi · Singapore</span><span class="lang-zh">© 二〇二六 · 林炯圻 · 新加坡</span></span>
+      <span class="seal">◇ <span class="lang-en">Set in Fraunces &amp; Plus Jakarta Sans</span><span class="lang-zh">字体：Fraunces &amp; Plus Jakarta Sans</span></span>
+      <span><span class="lang-en">Hand-crafted, single page</span><span class="lang-zh">手工编写，单页</span></span>
     </div>
-    <div class="links">
-      <a href="mailto:e1538714@u.nus.edu" class="lang-en">Email</a>
-      <a href="mailto:1760070012@qq.com" class="lang-zh">邮箱</a>
-      <a href="https://www.linkedin.com/in/lin-jiongqi-a2609a37a" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="tel:+6583748503" class="lang-en">+65 8374 8503</a>
-      <a href="tel:+8618959016356" class="lang-zh">+86 189 5901 6356</a>
-    </div>
-    <div>© <span id="yr"></span> <span class="lang-en">Lin Jiongqi · Singapore</span><span class="lang-zh">林炯圻 · 新加坡</span></div>
   </div>
 </footer>
 
 <script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-
+/* ── language toggle (persists in localStorage) ── */
+(function(){
+  const KEY = "linalmanac.lang";
   const body = document.body;
-  const toggleBtn = document.getElementById('langToggle');
-  const langLabel = document.getElementById('langLabel');
-
-  function setLang(lang) {
-    body.dataset.lang = lang;
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-    langLabel.textContent = lang === 'en' ? '中文' : 'EN';
-    document.title = lang === 'zh' ? '林炯圻 — 产品与 AI' : 'Lin Jiongqi — Product & AI';
-    try { localStorage.setItem('lj_lang', lang); } catch (e) {}
-  }
-
-  let initial = 'en';
-  try {
-    const stored = localStorage.getItem('lj_lang');
-    if (stored === 'en' || stored === 'zh') initial = stored;
-    else if (navigator.language && navigator.language.toLowerCase().startsWith('zh')) initial = 'zh';
-  } catch (e) {}
-  setLang(initial);
-
-  toggleBtn.addEventListener('click', () => {
-    setLang(body.dataset.lang === 'en' ? 'zh' : 'en');
+  const btn = document.getElementById("langToggle");
+  const saved = localStorage.getItem(KEY);
+  if(saved === "zh" || saved === "en"){ body.setAttribute("data-lang", saved); }
+  btn.addEventListener("click", () => {
+    const next = body.getAttribute("data-lang") === "zh" ? "en" : "zh";
+    body.setAttribute("data-lang", next);
+    localStorage.setItem(KEY, next);
+    document.documentElement.lang = next === "zh" ? "zh" : "en";
   });
+})();
 
+/* ── scroll reveal ── */
+(function(){
+  const els = document.querySelectorAll(".reveal");
+  if(!("IntersectionObserver" in window)){
+    els.forEach(e => e.classList.add("in"));
+    return;
+  }
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
+    entries.forEach(en => {
+      if(en.isIntersecting){
+        en.target.classList.add("in");
+        io.unobserve(en.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.12, rootMargin: "0px 0px -60px 0px" });
+  els.forEach(e => io.observe(e));
+})();
 
-  document.querySelectorAll('section, .hero').forEach(el => {
-    el.classList.add('reveal');
-    io.observe(el);
-  });
+/* ── reading progress bar ── */
+(function(){
+  const bar = document.getElementById("prog");
+  let raf = 0;
+  const update = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop || document.body.scrollTop) / max * 100 : 0;
+    bar.style.width = pct + "%";
+    raf = 0;
+  };
+  document.addEventListener("scroll", () => {
+    if(!raf) raf = requestAnimationFrame(update);
+  }, { passive: true });
+  update();
+})();
 </script>
 
 </body>
